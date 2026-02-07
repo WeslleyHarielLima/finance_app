@@ -1,0 +1,127 @@
+<div class="mobile-container">
+  <header class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p><%= Date.current.strftime("%d/%m/%Y") %></p>
+  </header>
+
+  <div class="balance-summary">
+    <div class="balance-card income">
+      <h3>Receitas</h3>
+      <p class="amount">R$ 0,00</p>
+    </div>
+    <div class="balance-card expense">
+      <h3>Despesas</h3>
+      <p class="amount">R$ 0,00</p>
+    </div>
+    <div class="balance-card total">
+      <h3>Saldo</h3>
+      <p class="amount">R$ 0,00</p>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <a href="#" class="action-btn">
+      <span class="icon">➕</span>
+      Nova Transação
+    </a>
+    <a href="#" class="action-btn">
+      <span class="icon=">📊</span>
+      Relatórios
+    </a>
+    <a href="#" class="action-btn">
+      <span class="icon">🎯</span>
+      Metas
+    </a>
+  </div>
+
+  <div class="recent-transactions">
+    <h2>Transações Recentes</h2>
+    <p class="empty-state">Nenhuma transação cadastrada ainda.</p>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="/dashboard" class="nav-item active">
+    <span class="nav-icon">🏠</span>
+    Início
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">💰</span>
+    Transações
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">📈</span>
+    Relatórios
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">⚙️</span>
+    Config
+  </a>
+</nav>
+
+<style>
+  .dashboard-header {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .balance-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0 16px;
+  }
+  
+  .balance-card {
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .balance-card.income { background: #d4edda; }
+  .balance-card.expense { background: #f8d7da; }
+  .balance-card.total { background: #cce5ff; }
+  
+  .amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 8px 0 0 0;
+  }
+  
+  .quick-actions {
+    display: flex;
+    justify-content: space-around;
+    margin: 24px 16px;
+  }
+  
+  .action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background: white;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 80px;
+  }
+  
+  .action-btn .icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .recent-transactions {
+    margin: 24px 16px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+  }
+  
+  .empty-state {
+    text-align: center;
+    color: #666;
+    padding: 40px 0;
+  }
+</style>
