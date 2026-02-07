@@ -1,0 +1,231 @@
+<div class="mobile-container">
+  <div class="page-header">
+    <h1>Transações</h1>
+    <div class="header-actions">
+      <%= link_to new_financial_entry_path(entry_type: 'income'), class: "btn btn-sm success" do %>
+        ➕ Receita
+      <% end %>
+      <%= link_to new_financial_entry_path(entry_type: 'expense'), class: "btn btn-sm danger" do %>
+        ➖ Despesa
+      <% end %>
+    </div>
+  </div>
+
+  <div class="filters mobile-card">
+    <h3>Filtros</h3>
+    <div class="filter-options">
+      <%= link_to "Todas", financial_entries_path, 
+          class: "filter-tag #{'active' unless params[:entry_type].present?}" %>
+      <%= link_to "Receitas", financial_entries_path(entry_type: 'income'), 
+          class: "filter-tag #{'active' if params[:entry_type] == 'income'}" %>
+      <%= link_to "Despesas", financial_entries_path(entry_type: 'expense'), 
+          class: "filter-tag #{'active' if params[:entry_type] == 'expense'}" %>
+    </div>
+    
+    <% if @categories && @categories.any? %>
+      <div class="category-filters">
+        <select class="category-select" onchange="if(this.value) window.location.href = this.value">
+          <option value="<%= financial_entries_path %>">Todas categorias</option>
+          <% @categories.each do |category| %>
+            <option value="<%= financial_entries_path(category_id: category.id) %>" 
+                    <%= 'selected' if params[:category_id] == category.id.to_s %>>
+              <%= category.icon %> <%= category.name %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @financial_entries && @financial_entries.any? %>
+    <div class="transactions-list">
+      <% @financial_entries.each do |transaction| %>
+        <div class="transaction-item mobile-card">
+          <div class="transaction-main">
+            <div class="transaction-icon <%= transaction.entry_type %>">
+              <%= transaction.category&.icon || (transaction.entry_type == 'income' ? '💰' : '💸') %>
+            </div>
+            <div class="transaction-details">
+              <h4><%= transaction.description %></h4>
+              <div class="transaction-meta">
+                <span class="date"><%= transaction.date.strftime("%d/%m/%Y") %></span>
+                <span class="category"><%= transaction.category&.name || "Sem categoria" %></span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="transaction-actions">
+            <div class="transaction-amount <%= transaction.entry_type %>">
+              <%= transaction.entry_type == 'income' ? '+' : '-' %>
+              R$ <%= number_with_precision(transaction.amount, precision: 2) %>
+            </div>
+            <div class="action-buttons">
+              <%= link_to edit_financial_entry_path(transaction), class: "btn-icon" do %>
+                ✏️
+              <% end %>
+              <%= link_to transaction, 
+                  data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' }, 
+                  class: "btn-icon danger" do %>
+                🗑️
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state mobile-card">
+      <div class="empty-icon">📭</div>
+      <h3>Nenhuma transação encontrada</h3>
+      <p>Comece adicionando sua primeira transação financeira.</p>
+      <div class="empty-actions">
+        <%= link_to "Nova Receita", new_financial_entry_path(entry_type: 'income'), class: "btn btn-success" %>
+        <%= link_to "Nova Despesa", new_financial_entry_path(entry_type: 'expense'), class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= render 'shared/bottom_nav' %>
+
+<style>
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: white;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btn-sm {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .btn.success { background: #28a745; color: white; }
+  .btn.danger { background: #dc3545; color: white; }
+  
+  .filters {
+    margin: 16px;
+  }
+  
+  .filter-options {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  
+  .filter-tag {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #f0f0f0;
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .filter-tag.active {
+    background: #4a6fa5;
+    color: white;
+  }
+  
+  .category-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .transaction-item {
+    margin: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .transaction-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+  
+  .transaction-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+  
+  .transaction-icon.income { background: #d4edda; }
+  .transaction-icon.expense { background: #f8d7da; }
+  
+  .transaction-details h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+  }
+  
+  .transaction-meta {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  
+  .transaction-meta .date::after {
+    content: "•";
+    margin: 0 6px;
+  }
+  
+  .transaction-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .transaction-amount {
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  
+  .transaction-amount.income { color: #28a745; }
+  .transaction-amount.expense { color: #dc3545; }
+  
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btn-icon {
+    padding: 4px 8px;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .btn-icon.danger { color: #dc3545; }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .empty-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+</style>
