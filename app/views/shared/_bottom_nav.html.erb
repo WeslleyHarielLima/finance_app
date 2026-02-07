@@ -1,0 +1,26 @@
+<nav class="bottom-nav">
+  <%= link_to dashboard_path, class: "nav-item #{'active' if current_page?(dashboard_path)}" do %>
+    <span class="nav-icon">🏠</span>
+    Início
+  <% end %>
+  
+  <%= link_to financial_entries_path, class: "nav-item #{'active' if current_page?(financial_entries_path)}" do %>
+    <span class="nav-icon">💰</span>
+    Transações
+  <% end %>
+  
+  <%= link_to new_financial_entry_path, class: "nav-item special" do %>
+    <span class="nav-icon">➕</span>
+    Nova
+  <% end %>
+  
+  <a href="#" class="nav-item">
+    <span class="nav-icon">📊</span>
+    Relatórios
+  </a>
+  
+  <%= link_to edit_user_registration_path, class: "nav-item" do %>
+    <span class="nav-icon">⚙️</span>
+    Conta
+  <% end %>
+</nav>

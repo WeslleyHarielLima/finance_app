@@ -3,21 +3,43 @@ class FinancialEntriesController < ApplicationController
   before_action :set_financial_entry, only: [:show, :edit, :update, :destroy]
 
   def index
-    @financial_entries = current_user.financial_entries.order(date: :desc)
+    @financial_entries = current_user.financial_entries
+      .includes(:category)
+      .order(date: :desc, created_at: :desc)
+    
+    # Filtros
+    if params[:entry_type].present?
+      @financial_entries = @financial_entries.where(entry_type: params[:entry_type])
+    end
+    
+    if params[:category_id].present?
+      @financial_entries = @financial_entries.where(category_id: params[:category_id])
+    end
+    
+    # Estatísticas
+    @total_income = current_user.financial_entries.where(entry_type: 'income').sum(:amount)
+    @total_expenses = current_user.financial_entries.where(entry_type: 'expense').sum(:amount)
+    @categories = current_user.categories
   end
 
   def show
   end
 
   def new
-    @financial_entry = current_user.financial_entries.new(date: Date.current)
+    @financial_entry = current_user.financial_entries.new(
+      date: Date.current,
+      entry_type: params[:entry_type] || 'expense'
+    )
+    @categories = current_user.categories
   end
 
   def edit
+    @categories = current_user.categories
   end
 
   def create
     @financial_entry = current_user.financial_entries.new(financial_entry_params)
+    @categories = current_user.categories
 
     if @financial_entry.save
       redirect_to financial_entries_path, notice: 'Transação criada com sucesso.'
@@ -27,6 +49,8 @@ class FinancialEntriesController < ApplicationController
   end
 
   def update
+    @categories = current_user.categories
+    
     if @financial_entry.update(financial_entry_params)
       redirect_to financial_entries_path, notice: 'Transação atualizada com sucesso.'
     else
