@@ -63,3 +63,5 @@ gem 'faker'
 
 # Para desenvolvimento
 gem 'pry-rails'
+gem 'importmap-rails'
+gem 'importmap-rails'

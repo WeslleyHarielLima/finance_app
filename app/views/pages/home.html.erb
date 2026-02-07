@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>💰 App de Finanças</h1>
+  
+  <% if user_signed_in? %>
+    <p>Olá, <%= current_user.name %>!</p>
+    <p>Seu saldo: R$ 0,00</p>
+    
+    <div class="actions">
+      <%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn" %>
+      <%= link_to "Dashboard", "#", class: "btn" %>
+    </div>
+  <% else %>
+    <p>Controle suas finanças de forma inteligente.</p>
+    
+    <div class="actions">
+      <%= link_to "Cadastrar", new_user_registration_path, class: "btn" %>
+      <%= link_to "Entrar", new_user_session_path, class: "btn" %>
+    </div>
+  <% end %>
+</div>
