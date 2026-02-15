@@ -15,6 +15,22 @@ class User < ApplicationRecord
   validates :monthly_income, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
   def balance
-    financial_entries.incomes.sum(:amount) - financial_entries.expenses.sum(:amount)
+    financial_entries.income.sum(:amount) - financial_entries.expense.sum(:amount)
+  end
+
+  def balance_for_month(date = Date.current)
+    range = date.beginning_of_month..date.end_of_month
+    entries = financial_entries.where(date: range)
+    entries.income.sum(:amount) - entries.expense.sum(:amount)
+  end
+
+  def income_for_month(date = Date.current)
+    range = date.beginning_of_month..date.end_of_month
+    financial_entries.income.where(date: range).sum(:amount)
+  end
+
+  def expenses_for_month(date = Date.current)
+    range = date.beginning_of_month..date.end_of_month
+    financial_entries.expense.where(date: range).sum(:amount)
   end
 end

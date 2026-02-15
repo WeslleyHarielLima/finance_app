@@ -1,0 +1,157 @@
+/* Auth Pages */
+.auth-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--color-text);
+}
+
+.auth-description {
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+.auth-form .field {
+  margin-bottom: 20px;
+}
+
+.auth-form .form-inputs {
+  margin-bottom: 20px;
+}
+
+.auth-form .input {
+  margin-bottom: 16px;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+}
+
+.auth-form .hint {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.auth-container .btn {
+  width: 100%;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.auth-links a {
+  color: var(--color-primary);
+}
+
+.auth-actions {
+  text-align: center;
+}
+
+.pending-confirmation {
+  padding: 8px 12px;
+  background: #fff3cd;
+  color: #856404;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+}
+
+.danger-zone {
+  margin-top: 32px;
+  padding: 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: var(--radius-lg);
+  background: #fff5f5;
+}
+
+.danger-zone h3 {
+  margin: 0 0 8px 0;
+  color: var(--color-danger);
+  font-size: 1rem;
+}
+
+.danger-zone p {
+  margin: 0 0 16px 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Home Page */
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.home-header {
+  text-align: center;
+  color: var(--color-white);
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.home-main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  padding: 20px;
+}
+
+.feature .icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .features { flex-direction: column; }
+}

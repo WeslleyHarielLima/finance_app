@@ -1,0 +1,249 @@
+/* Balance Cards */
+.balance-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px;
+}
+
+.balance-card {
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.balance-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.balance-card.income { background: var(--color-income-bg); }
+.balance-card.expense { background: var(--color-expense-bg); }
+.balance-card.total { background: var(--color-balance-bg); }
+
+.amount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.amount.positive { color: var(--color-success); }
+.amount.negative { color: var(--color-danger); }
+
+/* Month Summary Cards (Reports) */
+.month-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px;
+}
+
+.summary-card {
+  padding: 12px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.summary-card.income { background: var(--color-income-bg); }
+.summary-card.expense { background: var(--color-expense-bg); }
+.summary-card.balance { background: var(--color-balance-bg); }
+
+.summary-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.summary-value.positive { color: var(--color-success); }
+.summary-value.negative { color: var(--color-danger); }
+
+/* Chart Cards */
+.chart-card {
+  margin: 0 16px 16px;
+  padding: 20px;
+}
+
+.chart-card h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+}
+
+.empty-chart {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 20px 0;
+}
+
+/* Welcome / Auth Cards */
+.welcome-card, .auth-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Budget Cards */
+.current-budget, .no-budget, .budgets-history {
+  margin: 16px;
+  padding: 20px;
+}
+
+.current-budget h3, .budgets-history h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+}
+
+.no-budget {
+  text-align: center;
+}
+
+.no-budget p {
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+/* Budget Progress */
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-success);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.progress-fill.exceeded {
+  background: var(--color-danger);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.budget-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.stat-value.positive { color: var(--color-success); }
+.stat-value.negative { color: var(--color-danger); }
+
+.budget-alert {
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--color-expense-bg);
+  color: var(--color-expense-text);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Budget Items */
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.budget-item:last-child {
+  border-bottom: none;
+}
+
+.budget-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.budget-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.budget-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Badges */
+.badge {
+  padding: 4px 8px;
+  border-radius: var(--radius-lg);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background: var(--color-income-bg);
+  color: var(--color-income-text);
+}
+
+.badge-danger {
+  background: var(--color-expense-bg);
+  color: var(--color-expense-text);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 40px 20px;
+}
+
+.empty-state p {
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.empty-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}

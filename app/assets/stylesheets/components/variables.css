@@ -1,0 +1,24 @@
+:root {
+  --color-primary: #4a6fa5;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-text: #333;
+  --color-text-muted: #666;
+  --color-bg: #f5f5f5;
+  --color-white: #fff;
+  --color-border: #e0e0e0;
+  --color-border-light: #eee;
+  --color-income-bg: #d4edda;
+  --color-expense-bg: #f8d7da;
+  --color-balance-bg: #cce5ff;
+  --color-income-text: #155724;
+  --color-expense-text: #721c24;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.1);
+}

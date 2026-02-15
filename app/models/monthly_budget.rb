@@ -6,7 +6,7 @@ class MonthlyBudget < ApplicationRecord
 
   def spent
     user.financial_entries
-      .expenses
+      .expense
       .where(date: month.beginning_of_month..month.end_of_month)
       .sum(:amount)
   end

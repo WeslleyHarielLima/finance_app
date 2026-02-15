@@ -1,28 +1,23 @@
 class FinancialEntriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_financial_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_financial_entry, only: [:edit, :update, :destroy]
 
   def index
     @financial_entries = current_user.financial_entries
       .includes(:category)
       .order(date: :desc, created_at: :desc)
-    
-    # Filtros
-    if params[:entry_type].present?
+
+    if params[:entry_type].in?(%w[income expense])
       @financial_entries = @financial_entries.where(entry_type: params[:entry_type])
     end
-    
+
     if params[:category_id].present?
       @financial_entries = @financial_entries.where(category_id: params[:category_id])
     end
-    
-    # Estatísticas
-    @total_income = current_user.financial_entries.where(entry_type: 'income').sum(:amount)
-    @total_expenses = current_user.financial_entries.where(entry_type: 'expense').sum(:amount)
-    @categories = current_user.categories
-  end
 
-  def show
+    @total_income = @financial_entries.income.sum(:amount)
+    @total_expenses = @financial_entries.expense.sum(:amount)
+    @categories = current_user.categories
   end
 
   def new

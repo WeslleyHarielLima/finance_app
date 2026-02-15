@@ -1,30 +1,15 @@
 class FinancialEntry < ApplicationRecord
   belongs_to :user
   belongs_to :category, optional: true
-  
-  # Validations
+
+  enum :entry_type, { income: 'income', expense: 'expense' }
+
   validates :description, presence: true, length: { minimum: 2, maximum: 100 }
   validates :amount, presence: true, numericality: { greater_than: 0 }
-  validates :entry_type, presence: true, inclusion: { in: ['income', 'expense'] }
+  validates :entry_type, presence: true
   validates :date, presence: true
-  
-  # Scopes
-  scope :incomes, -> { where(entry_type: 'income') }
-  scope :expenses, -> { where(entry_type: 'expense') }
-  scope :this_month, -> { 
-    where(date: Date.current.beginning_of_month..Date.current.end_of_month) 
+
+  scope :this_month, -> {
+    where(date: Date.current.beginning_of_month..Date.current.end_of_month)
   }
-  
-  # Methods
-  def formatted_amount
-    "R$ #{'%.2f' % amount}".gsub('.', ',')
-  end
-  
-  def income?
-    entry_type == 'income'
-  end
-  
-  def expense?
-    entry_type == 'expense'
-  end
 end
