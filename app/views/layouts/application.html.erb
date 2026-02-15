@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <title>FinanceApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -14,13 +14,32 @@
     <%= stylesheet_link_tag "components/navigation", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "components/forms", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "components/auth", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= stylesheet_link_tag "components/toast", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <% if notice %><p class="notice"><%= notice %></p><% end %>
-    <% if alert %><p class="alert"><%= alert %></p><% end %>
-    <%= yield %>
+    <% if notice || alert %>
+      <div class="toast-container" aria-live="polite">
+        <% if notice %>
+          <div class="toast success" data-auto-dismiss="3000">
+            <%= notice %>
+            <button class="toast-close" aria-label="Fechar notificacao">&times;</button>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div class="toast danger" data-auto-dismiss="5000">
+            <%= alert %>
+            <button class="toast-close" aria-label="Fechar notificacao">&times;</button>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <main role="main">
+      <%= yield %>
+    </main>
+
     <% if user_signed_in? %>
       <%= render 'shared/bottom_nav' %>
     <% end %>

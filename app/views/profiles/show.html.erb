@@ -1,0 +1,59 @@
+<div class="mobile-container">
+  <div class="page-header">
+    <h1>Meu Perfil</h1>
+    <%= link_to "Editar", edit_profile_path, class: "btn btn-sm btn-primary" %>
+  </div>
+
+  <div class="profile-info mobile-card">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <%= @user.name[0].upcase %>
+      </div>
+      <div class="profile-name">
+        <h2><%= @user.name %></h2>
+        <p class="profile-email"><%= @user.email %></p>
+      </div>
+    </div>
+
+    <div class="profile-details">
+      <div class="detail-item">
+        <span class="label">Membro desde</span>
+        <span class="value"><%= @stats[:member_since].strftime('%d/%m/%Y') %></span>
+      </div>
+      <% if @user.monthly_income.present? && @user.monthly_income > 0 %>
+        <div class="detail-item">
+          <span class="label">Renda mensal</span>
+          <span class="value">R$ <%= number_with_precision(@user.monthly_income, precision: 2) %></span>
+        </div>
+      <% end %>
+      <% if @user.currency.present? %>
+        <div class="detail-item">
+          <span class="label">Moeda</span>
+          <span class="value"><%= @user.currency %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="profile-stats mobile-card">
+    <h3>Estatisticas</h3>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-value"><%= @stats[:total_entries] %></span>
+        <span class="stat-label">Transacoes</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value"><%= @stats[:categories_count] %></span>
+        <span class="stat-label">Categorias</span>
+      </div>
+      <div class="stat-item income">
+        <span class="stat-value">R$ <%= number_with_precision(@stats[:total_income], precision: 2) %></span>
+        <span class="stat-label">Total Receitas</span>
+      </div>
+      <div class="stat-item expense">
+        <span class="stat-value">R$ <%= number_with_precision(@stats[:total_expenses], precision: 2) %></span>
+        <span class="stat-label">Total Despesas</span>
+      </div>
+    </div>
+  </div>
+</div>

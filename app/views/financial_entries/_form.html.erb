@@ -1,28 +1,40 @@
-<%= form_with(model: financial_entry, local: true) do |form| %>
+<%= form_with(model: financial_entry, local: true, data: { turbo_submits_with: "Salvando..." }) do |form| %>
   <div class="form-group">
-    <%= form.label :description %>
+    <%= form.label :description, "Descricao" %>
     <%= form.text_field :description, class: "form-control" %>
   </div>
-  
+
   <div class="form-group">
-    <%= form.label :amount %>
+    <%= form.label :amount, "Valor" %>
     <%= form.number_field :amount, step: "0.01", class: "form-control" %>
   </div>
-  
+
   <div class="form-group">
-    <%= form.label :date %>
+    <%= form.label :date, "Data" %>
     <%= form.date_field :date, class: "form-control" %>
   </div>
-  
+
   <div class="form-group">
-    <%= form.label :entry_type %>
+    <%= form.label :entry_type, "Tipo" %>
     <%= form.select :entry_type, [['Receita', 'income'], ['Despesa', 'expense']], {}, class: "form-control" %>
   </div>
-  
+
   <div class="form-group">
-    <%= form.label :category_id %>
+    <%= form.label :category_id, "Categoria" %>
     <%= form.collection_select :category_id, @categories, :id, :name, { include_blank: "Selecione uma categoria" }, class: "form-control" %>
   </div>
-  
+
+  <div class="form-group">
+    <%= form.label :recurring do %>
+      <%= form.check_box :recurring, class: "form-check-input" %>
+      Transacao recorrente
+    <% end %>
+  </div>
+
+  <div class="form-group" id="recurring-day-field" style="<%= 'display:none' unless financial_entry.recurring? %>">
+    <%= form.label :recurring_day, "Dia do mes (1-31)" %>
+    <%= form.number_field :recurring_day, min: 1, max: 31, class: "form-control" %>
+  </div>
+
   <%= form.submit class: "btn btn-primary" %>
 <% end %>

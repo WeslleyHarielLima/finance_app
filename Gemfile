@@ -56,6 +56,9 @@ group :development do
   gem "web-console"
 end
 
+# Hotwire
+gem 'turbo-rails'
+
 # GEMS ESSENCIAIS
 gem 'devise'
 gem 'haml-rails'
@@ -65,6 +68,20 @@ gem 'simple_form'
 gem 'font-awesome-sass'
 gem 'faker'
 
+# Exportacao PDF
+gem 'prawn'
+gem 'prawn-table'
+
+# Paginacao
+gem 'kaminari'
+
 # Para desenvolvimento
 gem 'pry-rails'
 gem 'importmap-rails'
+
+group :test do
+  gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end

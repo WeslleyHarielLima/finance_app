@@ -1,8 +1,14 @@
 <div class="mobile-container">
   <header class="dashboard-header">
-    <h1>Olá, <%= current_user.name %>!</h1>
+    <h1>Ola, <%= current_user.name %>!</h1>
     <p class="date"><%= Date.current.strftime("%A, %d de %B") %></p>
   </header>
+
+  <% if @current_budget && @current_budget.alert_level != :normal %>
+    <div class="budget-alert <%= @current_budget.alert_level %>" role="alert">
+      <%= @current_budget.alert_message %>
+    </div>
+  <% end %>
 
   <div class="balance-summary">
     <div class="balance-card income">
@@ -23,39 +29,53 @@
 
   <div class="quick-actions">
     <%= link_to new_financial_entry_path(entry_type: 'income'), class: "action-btn" do %>
-      <span class="icon">➕</span>
+      <span class="icon" aria-hidden="true">+</span>
       Nova Receita
     <% end %>
-    
+
     <%= link_to new_financial_entry_path(entry_type: 'expense'), class: "action-btn" do %>
-      <span class="icon">➖</span>
+      <span class="icon" aria-hidden="true">-</span>
       Nova Despesa
     <% end %>
-    
+
     <%= link_to financial_entries_path, class: "action-btn" do %>
-      <span class="icon">📋</span>
+      <span class="icon" aria-hidden="true">📋</span>
       Todas
     <% end %>
   </div>
 
+  <% if @daily_expenses.any? %>
+    <div class="chart-section mobile-card">
+      <h3>Gastos - Ultimos 7 dias</h3>
+      <%= line_chart @daily_expenses, prefix: "R$ ", colors: ["#dc3545"] %>
+    </div>
+  <% end %>
+
+  <% if @top_categories.any? %>
+    <div class="chart-section mobile-card">
+      <h3>Top Categorias do Mes</h3>
+      <%= pie_chart @top_categories, prefix: "R$ " %>
+    </div>
+  <% end %>
+
   <div class="recent-transactions mobile-card">
     <div class="section-header">
-      <h2>Transações Recentes</h2>
+      <h2>Transacoes Recentes</h2>
       <%= link_to "Ver todas", financial_entries_path, class: "see-all" %>
     </div>
-    
+
     <% if @recent_transactions.any? %>
       <div class="transactions-list">
         <% @recent_transactions.each do |transaction| %>
           <div class="transaction-item">
             <div class="transaction-info">
-              <div class="transaction-icon <%= transaction.entry_type %>">
+              <div class="transaction-icon <%= transaction.entry_type %>" aria-hidden="true">
                 <%= transaction.entry_type == 'income' ? '📥' : '📤' %>
               </div>
               <div class="transaction-details">
                 <h4><%= transaction.description %></h4>
                 <p class="transaction-meta">
-                  <%= transaction.date.strftime("%d/%m") %> • 
+                  <%= transaction.date.strftime("%d/%m") %> •
                   <%= transaction.category&.name || "Sem categoria" %>
                 </p>
               </div>
@@ -68,8 +88,8 @@
         <% end %>
       </div>
     <% else %>
-      <p class="empty-state">Nenhuma transação cadastrada ainda.</p>
-      <%= link_to "Criar primeira transação", new_financial_entry_path, class: "btn btn-primary" %>
+      <p class="empty-state">Nenhuma transacao cadastrada ainda.</p>
+      <%= link_to "Criar primeira transacao", new_financial_entry_path, class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

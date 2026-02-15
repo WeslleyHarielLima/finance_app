@@ -33,9 +33,10 @@ class CategoriesController < ApplicationController
     if @category.financial_entries.exists?
       redirect_to categories_path,
         alert: "Nao e possivel excluir categoria com transacoes vinculadas."
-    else
-      @category.destroy
+    elsif @category.destroy
       redirect_to categories_path, notice: "Categoria excluida."
+    else
+      redirect_to categories_path, alert: "Erro ao excluir categoria."
     end
   end
 

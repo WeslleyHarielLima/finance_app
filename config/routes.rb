@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :categories, except: [:show]
   resources :monthly_budgets, except: [:show, :destroy]
   resources :reports, only: [:index]
+  resource :profile, only: [:show, :edit, :update]
 end

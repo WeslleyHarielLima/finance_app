@@ -1,0 +1,3 @@
+generate_recurring:
+  class: GenerateRecurringEntriesJob
+  schedule: every day at 1am

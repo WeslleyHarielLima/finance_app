@@ -23,4 +23,22 @@ class MonthlyBudget < ApplicationRecord
   def exceeded?
     spent > total_amount
   end
+
+  def alert_level
+    pct = percentage_used
+    case pct
+    when 0..70   then :normal
+    when 71..90  then :warning
+    when 91..100 then :danger
+    else              :exceeded
+    end
+  end
+
+  def alert_message
+    case alert_level
+    when :warning  then "Voce ja usou #{percentage_used}% do orcamento"
+    when :danger   then "Atencao! Voce esta em #{percentage_used}% do orcamento"
+    when :exceeded then "Orcamento ultrapassado em R$ #{'%.2f' % remaining.abs}"
+    end
+  end
 end
