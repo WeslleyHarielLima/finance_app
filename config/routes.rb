@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   end
   
   get 'dashboard', to: 'dashboard#index'
+
   resources :financial_entries
+  resources :categories, except: [:show]
+  resources :monthly_budgets, except: [:show, :destroy]
+  resources :reports, only: [:index]
+
   get 'pages/home'
 end

@@ -1,0 +1,124 @@
+<div class="mobile-container">
+  <header class="page-header">
+    <h1>Relatorios</h1>
+    <p class="header-subtitle"><%= Date.current.strftime("%B %Y") %></p>
+  </header>
+
+  <!-- Resumo do Mes -->
+  <div class="month-summary">
+    <div class="summary-card income">
+      <span class="summary-label">Receitas</span>
+      <span class="summary-value">R$ <%= number_with_precision(@total_income_month, precision: 2) %></span>
+    </div>
+    <div class="summary-card expense">
+      <span class="summary-label">Despesas</span>
+      <span class="summary-value">R$ <%= number_with_precision(@total_expense_month, precision: 2) %></span>
+    </div>
+    <div class="summary-card balance">
+      <span class="summary-label">Saldo</span>
+      <span class="summary-value <%= (@total_income_month - @total_expense_month) >= 0 ? 'positive' : 'negative' %>">
+        R$ <%= number_with_precision(@total_income_month - @total_expense_month, precision: 2) %>
+      </span>
+    </div>
+  </div>
+
+  <!-- Grafico: Receitas vs Despesas (6 meses) -->
+  <div class="chart-card mobile-card">
+    <h3>Receitas vs Despesas (6 meses)</h3>
+    <%= line_chart [
+      { name: "Receitas", data: @monthly_incomes },
+      { name: "Despesas", data: @monthly_expenses }
+    ], prefix: "R$ ", colors: ["#28a745", "#dc3545"], library: { scales: { y: { beginAtZero: true } } } %>
+  </div>
+
+  <!-- Grafico: Gastos por Categoria -->
+  <div class="chart-card mobile-card">
+    <h3>Gastos por Categoria (mes atual)</h3>
+    <% if @expenses_by_category.any? %>
+      <%= pie_chart @expenses_by_category, prefix: "R$ ", donut: true,
+          colors: ["#4a6fa5", "#28a745", "#dc3545", "#ffc107", "#17a2b8", "#6f42c1", "#fd7e14", "#20c997"] %>
+    <% else %>
+      <p class="empty-chart">Nenhuma despesa com categoria neste mes.</p>
+    <% end %>
+  </div>
+
+  <!-- Grafico: Comparativo Mensal -->
+  <div class="chart-card mobile-card">
+    <h3>Comparativo Mensal</h3>
+    <%= column_chart [
+      { name: "Receitas", data: @monthly_incomes },
+      { name: "Despesas", data: @monthly_expenses }
+    ], prefix: "R$ ", colors: ["#28a745", "#dc3545"] %>
+  </div>
+</div>
+
+<%= render "shared/bottom_nav" %>
+
+<style>
+  .page-header {
+    padding: 20px 16px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .page-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .header-subtitle {
+    margin: 4px 0 0 0;
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+  }
+
+  .month-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .summary-card {
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .summary-card.income { background: #d4edda; }
+  .summary-card.expense { background: #f8d7da; }
+  .summary-card.balance { background: #cce5ff; }
+
+  .summary-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .summary-value {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .summary-value.positive { color: #28a745; }
+  .summary-value.negative { color: #dc3545; }
+
+  .chart-card {
+    margin: 0 16px 16px;
+    padding: 20px;
+  }
+
+  .chart-card h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+  }
+
+  .empty-chart {
+    text-align: center;
+    color: #666;
+    padding: 20px 0;
+  }
+</style>

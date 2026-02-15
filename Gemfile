@@ -60,6 +60,7 @@ end
 gem 'devise'
 gem 'haml-rails'
 gem 'chartkick'
+gem 'groupdate'
 gem 'simple_form'
 gem 'font-awesome-sass'
 gem 'faker'

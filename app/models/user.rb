@@ -13,4 +13,8 @@ class User < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :monthly_income, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+
+  def balance
+    financial_entries.incomes.sum(:amount) - financial_entries.expenses.sum(:amount)
+  end
 end

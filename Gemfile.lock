@@ -133,6 +133,8 @@ GEM
       raabro (~> 1.4)
     globalid (1.3.0)
       activesupport (>= 6.1)
+    groupdate (6.7.0)
+      activesupport (>= 7.1)
     haml (7.2.0)
       temple (>= 0.8.2)
       thor
@@ -419,6 +421,7 @@ DEPENDENCIES
   dotenv-rails
   faker
   font-awesome-sass
+  groupdate
   haml-rails
   image_processing (~> 1.2)
   importmap-rails

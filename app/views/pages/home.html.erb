@@ -8,7 +8,7 @@
     <% if user_signed_in? %>
       <div class="welcome-card">
         <h2>Bem-vindo, <%= current_user.name %>!</h2>
-        <p class="balance">Saldo atual: <strong>R$ 0,00</strong></p>
+        <p class="balance">Saldo atual: <strong>R$ <%= number_with_precision(current_user.balance, precision: 2) %></strong></p>
         
         <div class="quick-actions">
           <%= link_to "📊 Dashboard", dashboard_path, class: "btn btn-primary" %>

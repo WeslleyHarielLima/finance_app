@@ -1,0 +1,32 @@
+<%= form_with(model: category, local: true) do |form| %>
+  <% if category.errors.any? %>
+    <div class="error-messages">
+      <h4><%= pluralize(category.errors.count, "erro") %> encontrado(s):</h4>
+      <ul>
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, "Nome" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Ex: Alimentacao" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :color, "Cor" %>
+    <%= form.color_field :color, class: "form-control form-control-color", value: category.color.presence || "#4a6fa5" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :icon, "Icone (emoji)" %>
+    <%= form.text_field :icon, class: "form-control", placeholder: "Ex: 🍔" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancelar", categories_path, class: "btn btn-outline" %>
+  </div>
+<% end %>

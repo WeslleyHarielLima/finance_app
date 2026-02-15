@@ -1,28 +1,103 @@
-<h2>Sign up</h2>
+<div class="auth-container">
+  <h2>Criar Conta</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'auth-form' }) do |f| %>
+    <%= f.error_notification message: "Verifique os erros abaixo:" %>
 
-  <div class="form-inputs">
-    <%= f.input :name,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "name" } %>
-    <%= f.input :email,
-                required: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+    <div class="form-inputs">
+      <%= f.input :name,
+                  label: "Nome",
+                  required: true,
+                  autofocus: true,
+                  placeholder: "Seu nome completo",
+                  input_html: { autocomplete: "name" } %>
+      <%= f.input :email,
+                  label: "E-mail",
+                  required: true,
+                  placeholder: "seu@email.com",
+                  input_html: { autocomplete: "email" } %>
+      <%= f.input :password,
+                  label: "Senha",
+                  required: true,
+                  hint: ("Minimo de #{@minimum_password_length} caracteres" if @minimum_password_length),
+                  input_html: { autocomplete: "new-password" } %>
+      <%= f.input :password_confirmation,
+                  label: "Confirmar Senha",
+                  required: true,
+                  input_html: { autocomplete: "new-password" } %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Cadastrar", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <div class="auth-links">
+    <p>Ja tem uma conta? <%= link_to "Entrar", new_user_session_path %></p>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
+<style>
+  .auth-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+  }
 
-<%= render "devise/shared/links" %>
+  .auth-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+  }
+
+  .auth-form .form-inputs {
+    margin-bottom: 20px;
+  }
+
+  .auth-form .input {
+    margin-bottom: 16px;
+  }
+
+  .auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .auth-form .hint {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: #4a6fa5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .auth-links {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .auth-links a {
+    color: #4a6fa5;
+  }
+</style>

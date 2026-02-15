@@ -1,18 +1,85 @@
-<h2>Forgot your password?</h2>
+<div class="auth-container">
+  <h2>Esqueceu sua senha?</h2>
+  <p class="auth-description">Informe seu e-mail e enviaremos instrucoes para redefinir sua senha.</p>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'auth-form' }) do |f| %>
+    <%= f.error_notification message: "Verifique os erros abaixo:" %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+    <div class="form-inputs">
+      <%= f.input :email,
+                  label: "E-mail",
+                  required: true,
+                  autofocus: true,
+                  placeholder: "seu@email.com",
+                  input_html: { autocomplete: "email" } %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Enviar instrucoes", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <div class="auth-links">
+    <p><%= link_to "Voltar para login", new_user_session_path %></p>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
+<style>
+  .auth-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+  }
 
-<%= render "devise/shared/links" %>
+  .auth-container h2 {
+    text-align: center;
+    margin-bottom: 8px;
+    color: #333;
+  }
+
+  .auth-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+  }
+
+  .auth-form .form-inputs {
+    margin-bottom: 20px;
+  }
+
+  .auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .auth-form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: #4a6fa5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .auth-links {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .auth-links a {
+    color: #4a6fa5;
+  }
+</style>
