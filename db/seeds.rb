@@ -5,14 +5,17 @@ FinancialEntry.destroy_all
 Category.destroy_all
 MonthlyBudget.destroy_all
 
+default_password = ENV.fetch('SEED_PASSWORD', 'dev_password_123')
+
 # Criar/atualizar usuário principal
 weslley = User.find_or_create_by!(email: 'weslley@gmail.com') do |user|
   user.name = 'Weslley Silva'
   user.monthly_income = 4500.00
   user.currency = 'BRL'
   user.timezone = 'America/Sao_Paulo'
-  user.password = '137954'
-  user.password_confirmation = '137954'
+  user.password = default_password
+  user.password_confirmation = default_password
+  user.confirmed_at = Time.current
 end
 
 # Atualizar se já existir
@@ -23,7 +26,7 @@ weslley.update!(
   timezone: 'America/Sao_Paulo'
 )
 
-puts "✅ Usuário: weslley@gmail.com / 137954"
+puts "✅ Usuário: weslley@gmail.com / [definida via ENV SEED_PASSWORD]"
 puts "   Nome: #{weslley.name}"
 puts "   Renda: R$ #{'%.2f' % weslley.monthly_income}"
 
@@ -78,4 +81,4 @@ puts "✅ Orçamento mensal: R$ 3.000,00"
 puts "\n🎯 Seeds concluídas!"
 puts "👉 Acesse: http://localhost:3000"
 puts "📧 Email: weslley@gmail.com"
-puts "🔐 Senha: 137954"
+puts "🔐 Senha: [definida via ENV SEED_PASSWORD]"

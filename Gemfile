@@ -46,6 +46,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Carrega variáveis de ambiente do .env
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -63,7 +66,4 @@ gem 'faker'
 
 # Para desenvolvimento
 gem 'pry-rails'
-gem 'importmap-rails'
-gem 'importmap-rails'
-gem 'importmap-rails'
 gem 'importmap-rails'
