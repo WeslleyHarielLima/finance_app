@@ -14,7 +14,7 @@ class CreditCardChargesController < ApplicationController
 
   def new
     @charge = current_user.credit_card_charges.new(
-      start_date: Date.current.beginning_of_month,
+      start_date: Date.current,
       installments: 1
     )
     @categories = current_user.categories
