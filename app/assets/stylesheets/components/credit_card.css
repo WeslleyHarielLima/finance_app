@@ -1,0 +1,256 @@
+/* Credit Card Charges */
+.cc-section {
+  margin: 16px 0;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  margin: 0 16px 12px;
+  color: var(--color-text-muted);
+}
+
+.cc-charges-list {
+  margin: 0;
+}
+
+.cc-charge-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 8px 16px;
+  padding: 16px;
+}
+
+.cc-charge-item.paid-off {
+  opacity: 0.6;
+}
+
+.cc-charge-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.cc-charge-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  background: #e8eaf6;
+  flex-shrink: 0;
+}
+
+.cc-charge-details h4 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+}
+
+.cc-charge-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.cc-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-xl);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.cc-badge.installment {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.cc-badge.recurring {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.cc-badge.paid {
+  background: var(--color-income-bg);
+  color: var(--color-income-text);
+}
+
+.cc-amount {
+  font-weight: 500;
+}
+
+.cc-category::before {
+  content: "\2022";
+  margin: 0 4px;
+}
+
+.cc-progress {
+  margin-top: 8px;
+}
+
+.cc-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cc-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.cc-progress-text {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  display: block;
+}
+
+.cc-charge-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.cc-total {
+  font-weight: bold;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.cc-total.muted {
+  color: var(--color-text-muted);
+}
+
+/* Calendar Report Section */
+.cc-calendar-section {
+  margin: 16px;
+}
+
+.cc-month-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.cc-month-nav .month-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.cc-month-nav a {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  padding: 4px 12px;
+  border-radius: var(--radius-md);
+}
+
+.cc-month-nav a:hover {
+  background: #f0f0f0;
+}
+
+.cc-month-total {
+  text-align: center;
+  padding: 16px;
+  background: var(--color-expense-bg);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.cc-month-total .total-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  display: block;
+}
+
+.cc-month-total .total-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-expense-text);
+}
+
+.cc-month-items {
+  margin: 0;
+}
+
+.cc-month-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.cc-month-item:last-child {
+  border-bottom: none;
+}
+
+.cc-month-item-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.cc-month-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background: #e8eaf6;
+}
+
+.cc-month-item-details h4 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.cc-month-item-details .item-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.cc-month-item-amount {
+  font-weight: 600;
+  color: var(--color-danger);
+  white-space: nowrap;
+}
+
+/* Installment Preview in Form */
+.installment-preview {
+  padding: 12px 16px;
+  background: #e3f2fd;
+  border-radius: var(--radius-md);
+  margin: 8px 0 16px;
+  font-weight: 600;
+  color: #1565c0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Empty calendar month */
+.cc-empty-month {
+  text-align: center;
+  padding: 24px;
+  color: var(--color-text-muted);
+}

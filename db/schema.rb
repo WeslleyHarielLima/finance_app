@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_15_201243) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_15_203337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_15_201243) do
     t.bigint "user_id", null: false
     t.index ["user_id", "name"], name: "index_categories_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "credit_card_charges", force: :cascade do |t|
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.string "description", null: false
+    t.decimal "installment_amount", null: false
+    t.integer "installments", default: 1, null: false
+    t.boolean "recurring", default: false
+    t.date "start_date", null: false
+    t.decimal "total_amount", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["category_id"], name: "index_credit_card_charges_on_category_id"
+    t.index ["user_id", "start_date"], name: "index_credit_card_charges_on_user_id_and_start_date"
+    t.index ["user_id"], name: "index_credit_card_charges_on_user_id"
   end
 
   create_table "financial_entries", force: :cascade do |t|
@@ -85,6 +101,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_15_201243) do
   end
 
   add_foreign_key "categories", "users"
+  add_foreign_key "credit_card_charges", "categories"
+  add_foreign_key "credit_card_charges", "users"
   add_foreign_key "financial_entries", "categories"
   add_foreign_key "financial_entries", "users"
   add_foreign_key "monthly_budgets", "users"

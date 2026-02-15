@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
 
   resources :financial_entries, except: [:show]
+  resources :credit_card_charges, except: [:show]
   resources :categories, except: [:show]
   resources :monthly_budgets, except: [:show, :destroy]
   resources :reports, only: [:index]

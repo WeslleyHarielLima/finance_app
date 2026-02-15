@@ -1,0 +1,7 @@
+<div class="mobile-container">
+  <div class="page-header">
+    <h1>Novo Gasto do Cartao</h1>
+    <%= link_to "Cancelar", credit_card_charges_path, class: "btn btn-outline btn-sm" %>
+  </div>
+  <%= render 'form', charge: @charge %>
+</div>

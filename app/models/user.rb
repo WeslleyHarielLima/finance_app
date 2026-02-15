@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :financial_entries, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :monthly_budgets, dependent: :destroy
+  has_many :credit_card_charges, dependent: :destroy
   
   # Validations
   validates :name, presence: true

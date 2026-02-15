@@ -50,4 +50,81 @@
       { name: "Despesas", data: @monthly_expenses }
     ], prefix: "R$ ", colors: ["#28a745", "#dc3545"] %>
   </div>
+
+  <!-- Calendario do Cartao de Credito -->
+  <div class="chart-card mobile-card cc-calendar-section">
+    <h3>Cartao de Credito</h3>
+
+    <div class="cc-month-nav">
+      <%= link_to reports_path(cc_month: (@cc_month - 1.month).strftime("%Y-%m")) do %>
+        ‹
+      <% end %>
+      <span class="month-label"><%= I18n.l(@cc_month, format: "%B %Y") %></span>
+      <%= link_to reports_path(cc_month: (@cc_month + 1.month).strftime("%Y-%m")) do %>
+        ›
+      <% end %>
+    </div>
+
+    <% if @cc_charges.any? %>
+      <div class="cc-month-total">
+        <span class="total-label">Total do cartao no mes</span>
+        <span class="total-value">R$ <%= number_with_precision(@cc_month_total, precision: 2) %></span>
+      </div>
+
+      <% if @cc_installment_charges.any? %>
+        <h4 style="margin: 12px 0 8px; font-size: 0.9rem; color: #666;">Parcelados</h4>
+        <div class="cc-month-items">
+          <% @cc_installment_charges.each do |charge| %>
+            <div class="cc-month-item">
+              <div class="cc-month-item-info">
+                <div class="cc-month-item-icon">
+                  <%= charge.category&.icon || '💳' %>
+                </div>
+                <div class="cc-month-item-details">
+                  <h4><%= charge.description %></h4>
+                  <div class="item-meta">
+                    <span class="cc-badge installment"><%= charge.installment_label_for(@cc_month) %></span>
+                    <span><%= charge.category&.name %></span>
+                  </div>
+                </div>
+              </div>
+              <span class="cc-month-item-amount">
+                R$ <%= number_with_precision(charge.installment_amount, precision: 2) %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @cc_recurring_charges.any? %>
+        <h4 style="margin: 12px 0 8px; font-size: 0.9rem; color: #666;">Recorrentes</h4>
+        <div class="cc-month-items">
+          <% @cc_recurring_charges.each do |charge| %>
+            <div class="cc-month-item">
+              <div class="cc-month-item-info">
+                <div class="cc-month-item-icon">
+                  <%= charge.category&.icon || '🔄' %>
+                </div>
+                <div class="cc-month-item-details">
+                  <h4><%= charge.description %></h4>
+                  <div class="item-meta">
+                    <span class="cc-badge recurring">Recorrente</span>
+                    <span><%= charge.category&.name %></span>
+                  </div>
+                </div>
+              </div>
+              <span class="cc-month-item-amount">
+                R$ <%= number_with_precision(charge.installment_amount, precision: 2) %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="cc-empty-month">
+        <p>Nenhum gasto do cartao neste mes.</p>
+        <%= link_to "Adicionar gasto", new_credit_card_charge_path, class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
+  </div>
 </div>

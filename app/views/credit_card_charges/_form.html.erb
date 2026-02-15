@@ -1,0 +1,51 @@
+<%= form_with(model: charge, local: true, data: { turbo_submits_with: "Salvando..." }) do |form| %>
+  <% if charge.errors.any? %>
+    <div class="form-errors">
+      <h4><%= pluralize(charge.errors.count, "erro") %> encontrado(s):</h4>
+      <ul>
+        <% charge.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :description, "Descricao" %>
+    <%= form.text_field :description, class: "form-control", placeholder: "Ex: TV Samsung 55 polegadas" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :total_amount, "Valor total" %>
+    <%= form.number_field :total_amount, step: "0.01", min: "0.01", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :recurring do %>
+      <%= form.check_box :recurring, class: "form-check-input" %>
+      Gasto recorrente (Netflix, Spotify, etc.)
+    <% end %>
+  </div>
+
+  <div class="form-group" id="installments-field" style="<%= 'display:none' if charge.recurring? %>">
+    <%= form.label :installments, "Numero de parcelas" %>
+    <%= form.number_field :installments, min: 1, max: 48, value: charge.installments || 1, class: "form-control" %>
+  </div>
+
+  <div class="installment-preview" style="display: none;">
+  </div>
+
+  <div class="form-group">
+    <%= form.label :start_date, "Mes da primeira parcela" %>
+    <%= form.month_field :start_date, class: "form-control",
+        value: charge.start_date&.strftime("%Y-%m") || Date.current.strftime("%Y-%m") %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :category_id, "Categoria" %>
+    <%= form.collection_select :category_id, @categories, :id, :name,
+        { include_blank: "Selecione uma categoria" }, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>

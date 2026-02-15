@@ -9,9 +9,9 @@
     Transacoes
   <% end %>
 
-  <%= link_to new_financial_entry_path, class: "nav-item special" do %>
-    <span class="nav-icon" aria-hidden="true">+</span>
-    Nova
+  <%= link_to credit_card_charges_path, class: "nav-item #{'active' if current_page?(credit_card_charges_path)}" do %>
+    <span class="nav-icon" aria-hidden="true">💳</span>
+    Cartao
   <% end %>
 
   <%= link_to reports_path, class: "nav-item #{'active' if current_page?(reports_path)}" do %>

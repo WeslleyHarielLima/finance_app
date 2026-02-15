@@ -1,0 +1,123 @@
+<div class="mobile-container">
+  <div class="page-header">
+    <h1>Cartao de Credito</h1>
+    <div class="header-actions">
+      <%= link_to new_credit_card_charge_path, class: "btn btn-sm btn-primary" do %>
+        + Novo Gasto
+      <% end %>
+    </div>
+  </div>
+
+  <% if @active_charges.any? %>
+    <div class="cc-section">
+      <h3 class="section-title">Gastos Ativos</h3>
+      <div class="cc-charges-list">
+        <% @active_charges.each do |charge| %>
+          <div class="cc-charge-item mobile-card">
+            <div class="cc-charge-main">
+              <div class="cc-charge-icon" aria-hidden="true">
+                <%= charge.category&.icon || '💳' %>
+              </div>
+              <div class="cc-charge-details">
+                <h4><%= charge.description %></h4>
+                <div class="cc-charge-meta">
+                  <% if charge.recurring? %>
+                    <span class="cc-badge recurring">Recorrente</span>
+                    <span class="cc-amount">R$ <%= number_with_precision(charge.total_amount, precision: 2) %>/mes</span>
+                  <% else %>
+                    <span class="cc-badge installment">
+                      <%= charge.installment_label_for(Date.current) || "#{charge.installments}x" %>
+                    </span>
+                    <span class="cc-amount">
+                      <%= charge.installments %>x de R$ <%= number_with_precision(charge.installment_amount, precision: 2) %>
+                    </span>
+                  <% end %>
+                  <span class="cc-category"><%= charge.category&.name || "Sem categoria" %></span>
+                </div>
+                <% unless charge.recurring? %>
+                  <div class="cc-progress">
+                    <% current_installment = charge.installment_number_for(Date.current) || 0 %>
+                    <div class="cc-progress-bar">
+                      <div class="cc-progress-fill" style="width: <%= (current_installment.to_f / charge.installments * 100).round %>%"></div>
+                    </div>
+                    <span class="cc-progress-text">
+                      Inicio: <%= charge.start_date.strftime("%m/%Y") %> — Fim: <%= charge.end_date.strftime("%m/%Y") %>
+                    </span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="cc-charge-actions">
+              <div class="cc-total">
+                R$ <%= number_with_precision(charge.total_amount, precision: 2) %>
+              </div>
+              <div class="action-buttons">
+                <%= link_to edit_credit_card_charge_path(charge), class: "btn-icon",
+                    aria: { label: "Editar #{charge.description}" } do %>
+                  ✏️
+                <% end %>
+                <%= link_to credit_card_charge_path(charge),
+                    data: { turbo_method: :delete, turbo_confirm: 'Tem certeza que deseja excluir este gasto?' },
+                    class: "btn-icon danger",
+                    aria: { label: "Excluir #{charge.description}" } do %>
+                  🗑️
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @paid_off_charges.any? %>
+    <div class="cc-section">
+      <h3 class="section-title">Quitados</h3>
+      <div class="cc-charges-list">
+        <% @paid_off_charges.each do |charge| %>
+          <div class="cc-charge-item mobile-card paid-off">
+            <div class="cc-charge-main">
+              <div class="cc-charge-icon" aria-hidden="true">
+                <%= charge.category&.icon || '✅' %>
+              </div>
+              <div class="cc-charge-details">
+                <h4><%= charge.description %></h4>
+                <div class="cc-charge-meta">
+                  <span class="cc-badge paid">Quitado</span>
+                  <span class="cc-amount">
+                    <%= charge.installments %>x de R$ <%= number_with_precision(charge.installment_amount, precision: 2) %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="cc-charge-actions">
+              <div class="cc-total muted">
+                R$ <%= number_with_precision(charge.total_amount, precision: 2) %>
+              </div>
+              <div class="action-buttons">
+                <%= link_to credit_card_charge_path(charge),
+                    data: { turbo_method: :delete, turbo_confirm: 'Tem certeza?' },
+                    class: "btn-icon danger",
+                    aria: { label: "Excluir #{charge.description}" } do %>
+                  🗑️
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @charges.empty? %>
+    <div class="empty-state mobile-card">
+      <div class="empty-icon" aria-hidden="true">💳</div>
+      <h3>Nenhum gasto do cartao</h3>
+      <p>Adicione seus gastos parcelados e recorrentes do cartao de credito.</p>
+      <div class="empty-actions">
+        <%= link_to "Novo Gasto", new_credit_card_charge_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
